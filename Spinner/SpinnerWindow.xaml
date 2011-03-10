@@ -1,0 +1,47 @@
+﻿<Window x:Class="Spinner.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:Spinner"
+        Title="Spinner" Height="500" Width="500" Icon="Spinner.png">
+    
+    <Window.Resources>
+        <local:SpinnerViewModel x:Key="ViewModelProvider"/>
+    </Window.Resources>
+    
+    <Grid DataContext="{Binding Source={StaticResource ViewModelProvider}}">
+        <Image Name="imgBackground" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></Image>
+        <Canvas MouseMove="Canvas_MouseMove" MouseUp="Canvas_MouseUp" Background="Transparent" SizeChanged="Canvas_SizeChanged">
+            <Polygon Stroke="Black" StrokeThickness="5">
+                <Polygon.Points>
+                    <PointCollection>
+                        <Point X="0" Y ="70"></Point>
+                        <Point X="25" Y ="70"></Point>
+                        <Point X="50" Y ="30"></Point>
+                        <Point X="50" Y ="0"></Point>
+                        <Point X="0" Y ="-250"></Point>
+                        <Point X="-50" Y ="0"></Point>
+                        <Point X="-50" Y ="30"></Point>
+                        <Point X="-25" Y ="70"></Point>
+                        <Point X="0" Y ="70"></Point>
+                    </PointCollection>
+                </Polygon.Points>
+                <Polygon.RenderTransform>
+                    <TransformGroup>
+                        <TranslateTransform Y="{Binding Path=SpinnerCentreY}" X="{Binding Path=SpinnerCentreX}"></TranslateTransform>
+                        <ScaleTransform ScaleX="{Binding Path=SpinnerWidth}" ScaleY="{Binding Path=SpinnerHeight}"  CenterX="{Binding Path=SpinnerCentreX}" CenterY="{Binding Path=SpinnerCentreY}"></ScaleTransform>
+                        <RotateTransform x:Name="rotationTransform" CenterX="{Binding Path=SpinnerCentreX}" CenterY="{Binding Path=SpinnerCentreY}" Angle="{Binding Path=Angle}"></RotateTransform>
+                    </TransformGroup>
+                </Polygon.RenderTransform>
+                <Polygon.Fill>
+                    <LinearGradientBrush>
+                        <GradientStopCollection>
+                            <GradientStop Color="Red" Offset="0"></GradientStop>
+                            <GradientStop Color="Red" Offset="0.25"></GradientStop>
+                            <GradientStop Color="Blue" Offset="1"></GradientStop>
+                        </GradientStopCollection>
+                    </LinearGradientBrush>
+                </Polygon.Fill>
+            </Polygon>
+        </Canvas>
+    </Grid>
+</Window>
